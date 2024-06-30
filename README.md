@@ -97,7 +97,7 @@ src/
 ```
 
 ### Keys
-Ensure that the keys.py file has all required keys."
+Ensure that the keys.py file has all required keys.
 ```python
 #Wifi credentials
 WIFI_SSID = 'YOUR_WIFI_SSID'
