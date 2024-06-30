@@ -142,7 +142,7 @@ def connect():
 ```
 
 ### Ubidots connection & functionality
-The sendData function sends data to your Ubidots project using the provided API token and label names. The build_json function creates the JSON body taht will be sent:
+The sendData function sends data to your Ubidots project using the provided API token and label names. The build_json function creates the JSON body that will be sent:
 ```python
 import urequests as requests
 import utils.keys as keys
