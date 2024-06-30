@@ -83,7 +83,7 @@ For creation of account and set up of Ubidots, follow [this](https://hackmd.io/@
 
 ## The Code
 
-The code has the following strucutre:
+Code structure:
 ```
 src/
 ├── utils/
@@ -97,7 +97,7 @@ src/
 ```
 
 ### Keys
-First off put in your credentials in the keys.py file
+Ensure that the keys.py file has all required keys."
 ```python
 #Wifi credentials
 WIFI_SSID = 'YOUR_WIFI_SSID'
