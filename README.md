@@ -10,6 +10,10 @@ In this project, a simple temperature and humidity monitoring system is created 
 **Completion time**: 1-4 hours, depending on previous experience
 
 
+<img src="images/proj_overview.png" alt="proj overview" width="800"/>
+
+
+
 ---
 
 ## Objective
