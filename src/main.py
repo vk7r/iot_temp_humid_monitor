@@ -9,12 +9,17 @@ import utils.wifi_connection as wifi
 
 
 # Set up
-sensor = dht.DHT11(machine.Pin(27))     # DHT11 Constructor, Temperature & Humidity Sensor 
+sensor = dht.DHT11(machine.Pin(27))  # DHT11 Constructor, Temperature & Humidity Sensor 
 
 on_board_led = Pin("LED", Pin.OUT)
 
 green_led = Pin(22, Pin.OUT)
 red_led = Pin(21, Pin.OUT)
+
+
+DEVICE_LABEL = "YOUR_DEVICE_LABEL" # Ubidots device label
+TEMPERATURE_VARIABLE_LABEL = "YOUR_TEMP_VARIABLE"  # Ubidots variable label
+HUMIDITY_VARIABLE_LABEL = "YOUR_HUM_VARIABLE"  # Ubidots variable label
 
 
 i = 1 # Counter variable
@@ -42,8 +47,8 @@ while True:
     humidity_val = humidity
 
     
-    data = vis.build_json(vis.TEMPERATURE_VARIABLE_LABEL, temperature, vis.HUMIDITY_VARIABLE_LABEL, humidity)
-    returnVal = vis.sendData(vis.DEVICE_LABEL, data)
+    data = vis.build_json(TEMPERATURE_VARIABLE_LABEL, temperature, HUMIDITY_VARIABLE_LABEL, humidity)
+    returnVal = vis.sendData(DEVICE_LABEL, data)
 
     if fn.is_too_cold(temperature, temp_threshold):
         green_led.off()

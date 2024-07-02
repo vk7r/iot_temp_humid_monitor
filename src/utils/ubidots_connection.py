@@ -4,10 +4,6 @@ import utils.keys as keys
 #UBIDOTS 
 
 
-DEVICE_LABEL = "YOUR_DEVICE_LABEL" # Ubidots device label
-TEMPERATURE_VARIABLE_LABEL = "YOUR_TEMP_VARIABLE"  # Ubidots variable label
-HUMIDITY_VARIABLE_LABEL = "YOUR_HUM_VARIABLE"  # Ubidots variable label
-
 # Sending data to Ubidots Restful Webserice
 def sendData(device, data):
     try:
