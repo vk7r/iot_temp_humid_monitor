@@ -10,7 +10,7 @@ WIFI_PASS = keys.WIFI_PASS # Assign your the password of your network
 def connect():
     wlan = network.WLAN(network.STA_IF)     # Put modem on Station mode
 
-    if not wlan.isconnected():                  
+    if not wlan.isconnected():
         print('connecting to network...')
         wlan.active(True)                   # Activate network interface
         wlan.config(pm = 0xa11140)
