@@ -191,6 +191,7 @@ def build_json(temp_var, temp_value, hum_var, hum_value):
 
 ### Main loop
 The main loop continuously measures temperature and humidity, sends the data to Ubidots every DELAY seconds, and blinks the onboard LED to show the code is running. Additionally, it checks the is_too_cold function if the temperature drops below the given threshold. If this condition is met, the red LED is activated, otherwise it activates the green LED.
+
 ```python
 import machine
 import dht
@@ -203,18 +204,22 @@ import utils.wifi_connection as wifi
 
 
 # Set up
-sensor = dht.DHT11(machine.Pin(27))     # DHT11 Constructor, Temperature & Humidity Sensor 
+sensor = dht.DHT11(machine.Pin(27))  # DHT11 Constructor, Temperature & Humidity Sensor 
 
 on_board_led = Pin("LED", Pin.OUT)
 
 green_led = Pin(22, Pin.OUT)
 red_led = Pin(21, Pin.OUT)
 
+# Ubidots labels
+DEVICE_LABEL = "YOUR_DEVICE_LABEL" # Ubidots device label
+TEMPERATURE_VARIABLE_LABEL = "YOUR_TEMP_VARIABLE"  # Ubidots variable label
+HUMIDITY_VARIABLE_LABEL = "YOUR_HUM_VARIABLE"  # Ubidots variable label
 
-i = 1 # Counter variable
+
 DELAY = 5  # Delay in seconds
 
-temp_threshold = 20 # prefered temperature limit, value in celcius
+temp_threshold = 25 # prefered temperature limit, value in celcius
 
 # Connect to the WiFi
 wifi.connect()
@@ -226,26 +231,28 @@ while True:
         sensor.measure()
         temperature = sensor.temperature()
         humidity = sensor.humidity()
-        print(i)
-        i += 1
         print("Temperature is {} degrees Celsius and Humidity is {}%".format(temperature, humidity))
+
+        temperature_val = temperature
+        humidity_val = humidity
+
+        # Build and sent data to Ubidots
+        data = vis.build_json(TEMPERATURE_VARIABLE_LABEL, temperature, HUMIDITY_VARIABLE_LABEL, humidity)
+        returnVal = vis.sendData(DEVICE_LABEL, data)
+
+        # Updates LEDs depending on the temperature
+        if fn.is_too_cold(temperature, temp_threshold):
+            green_led.off()
+            red_led.on()
+        else:
+            red_led.off()
+            green_led.on()
+
+
     except Exception as error:
         print("Exception occurred", error)
 
-    temperature_val = temperature
-    humidity_val = humidity
-
     
-    data = vis.build_json(vis.TEMPERATURE_VARIABLE_LABEL, temperature, vis.HUMIDITY_VARIABLE_LABEL, humidity)
-    returnVal = vis.sendData(vis.DEVICE_LABEL, data)
-
-    if fn.is_too_cold(temperature, temp_threshold):
-        green_led.off()
-        red_led.on()
-    else:
-        red_led.off()
-        green_led.on()
-
     on_board_led.off()
     sleep(DELAY)
 ```
