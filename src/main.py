@@ -16,13 +16,12 @@ on_board_led = Pin("LED", Pin.OUT)
 green_led = Pin(22, Pin.OUT)
 red_led = Pin(21, Pin.OUT)
 
-
+# Ubidots labels
 DEVICE_LABEL = "YOUR_DEVICE_LABEL" # Ubidots device label
 TEMPERATURE_VARIABLE_LABEL = "YOUR_TEMP_VARIABLE"  # Ubidots variable label
 HUMIDITY_VARIABLE_LABEL = "YOUR_HUM_VARIABLE"  # Ubidots variable label
 
 
-i = 1 # Counter variable
 DELAY = 5  # Delay in seconds
 
 temp_threshold = 25 # prefered temperature limit, value in celcius
@@ -37,25 +36,27 @@ while True:
         sensor.measure()
         temperature = sensor.temperature()
         humidity = sensor.humidity()
-        print(i)
-        i += 1
         print("Temperature is {} degrees Celsius and Humidity is {}%".format(temperature, humidity))
+
+        temperature_val = temperature
+        humidity_val = humidity
+
+        # Build and sent data to Ubidots
+        data = vis.build_json(TEMPERATURE_VARIABLE_LABEL, temperature, HUMIDITY_VARIABLE_LABEL, humidity)
+        returnVal = vis.sendData(DEVICE_LABEL, data)
+
+        # Updates LEDs depending on the temperature
+        if fn.is_too_cold(temperature, temp_threshold):
+            green_led.off()
+            red_led.on()
+        else:
+            red_led.off()
+            green_led.on()
+
+
     except Exception as error:
         print("Exception occurred", error)
 
-    temperature_val = temperature
-    humidity_val = humidity
-
     
-    data = vis.build_json(TEMPERATURE_VARIABLE_LABEL, temperature, HUMIDITY_VARIABLE_LABEL, humidity)
-    returnVal = vis.sendData(DEVICE_LABEL, data)
-
-    if fn.is_too_cold(temperature, temp_threshold):
-        green_led.off()
-        red_led.on()
-    else:
-        red_led.off()
-        green_led.on()
-
     on_board_led.off()
     sleep(DELAY)
