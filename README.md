@@ -47,7 +47,7 @@ Detail all the materials needed, including sensors, their specifications, where 
 1. Download Visual Studio Code from [here](https://code.visualstudio.com/download).
 2. Follow the instructions [here](https://hackmd.io/@lnu-iot/rkiTJj8O9) to add the Pymakr extension.
 
-### Update Pico Hardware
+### Update Pico Firmware
 
 1. Follow the instructions [here](https://hackmd.io/@lnu-iot/rkFw7gao_).
 
