@@ -51,7 +51,7 @@ Detail all the materials needed, including sensors, their specifications, where 
 
 ### Download Code from GitHub
 
-1. Download the code from the "src" folder on [GitHub]([https://github.com/myrepo](https://github.com/vk7r/iot_temp_humid_monitor/tree/master/src).
+1. Download the code from the "src" folder on [GitHub]([https://github.com/vk7r/iot_temp_humid_monitor/tree/master/src]).
 2. Upload the code to the Pico.
 
 ---
