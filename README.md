@@ -1,8 +1,6 @@
 
 # Temperature &amp; humidity monitor
-
-- **Name:** Viktor Kangasniemi
-- **Student Credentials:** vk222pn  
+ 
 
 ## Project Overview
 In this project, a simple temperature and humidity monitoring system is created using the DHT11 sensor and a Raspberry Pi Pico WH microcontroller. With this setup, the system captures temperature and humidity readings, which are then transmitted wirelessly via WiFi to the Ubidots platform for visualization. Two LEDs are included as indicators for the preferred temperature.
